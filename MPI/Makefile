@@ -69,9 +69,11 @@ DEFINES += -DTIMINGLEV=$(strip $(TIMER_LEVEL))
 
 all:  $(TARGET)
 
-$(TARGET): $(BUILD_DIR) $(OBJ)
-	@echo "===>  LINK  $@"
-	$(Q)$(FC)  $(CPPFLAGS) $(FCFLAGS) -o $@ $(OBJ) $(LIBS)
+ $(TARGET): $(OBJ)
+ 	@echo "===>  LINK  $(TARGET)"
+	$(FC)  $(OBJ) -o $(TARGET)
+
+$(OBJ): | $(BUILD_DIR)
 
 $(BUILD_DIR):
 	@mkdir $(BUILD_DIR)
