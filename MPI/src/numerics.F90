@@ -164,7 +164,9 @@ contains
     subroutine compute_residual(n, v1, v2, residual)
 
         use constants
-
+#ifdef _MPI
+        use mpi
+#endif
         implicit none
         integer, intent(in) :: n
         real(kind=dp), allocatable, intent(inout) :: v1(:)
@@ -176,6 +178,7 @@ contains
         real(kind=dp) :: local_residual = 0.0d0
         real(kind=dp) :: diff
         integer :: i
+        integer :: ierror
 
         do i = 1, n
             diff = abs(v1(i)-v2(i))
